@@ -143,7 +143,6 @@ template "#{node['splunk']['forwarder_home']}/etc/system/local/inputs.conf" do
   source "forwarder/#{node['splunk']['forwarder_config_folder']}/#{node['splunk']['forwarder_role']}.inputs.conf.erb"
   owner "root"
   group "root"
-  mode "0600"
   notifies :restart, resources(:service => "splunk")
 end
 
