@@ -144,7 +144,7 @@ template "Moving inputs file for role: #{node['splunk']['forwarder_role']}" do
   source "forwarder/#{node['splunk']['forwarder_config_folder']}/#{node['splunk']['forwarder_role']}.inputs.conf.erb"
   owner "root"
   group "root"
-  mode "0640"
+  mode "0600"
   notifies :restart, resources(:service => "splunk")
 end
 
