@@ -17,14 +17,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-systeminputsfile = "#{node['splunk']['forwarder_home']}/etc/system/local/inputs.conf"
-systeminputstemplate = "forwarder/#{node['splunk']['forwarder_config_folder']}/#{node['splunk']['forwarder_role']}.inputs.conf.erb"
-
 service "splunk" do
   action [ :nothing ]
   supports :status => true, :start => true, :stop => true, :restart => true
-  subscribes :restart, resources(:template => systeminputsfile)
 end
 
 directory "/opt" do
@@ -144,10 +139,15 @@ end
    end
 end
 
-template systeminputsfile do
-  source systeminputstemplate
+template "Moving inputs file for role: #{node['splunk']['forwarder_role']}" do
+  path "#{node['splunk']['forwarder_home']}/etc/system/local/inputs.conf"
+  source "forwarder/#{node['splunk']['forwarder_config_folder']}/#{node['splunk']['forwarder_role']}.inputs.conf.erb"
+  owner "root"
+  group "root"
+  mode "0640"
   notifies :restart, resources(:service => "splunk")
 end
+
 
 
 template "/etc/init.d/splunk" do
@@ -157,4 +157,6 @@ template "/etc/init.d/splunk" do
   group "root"
 end
 
-
+service "splunk" do
+   action :start
+end
