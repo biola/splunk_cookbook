@@ -139,8 +139,7 @@ end
    end
 end
 
-template "Moving inputs file for role: #{node['splunk']['forwarder_role']}" do
-  path "#{node['splunk']['forwarder_home']}/etc/system/local/inputs.conf"
+template "#{node['splunk']['forwarder_home']}/etc/system/local/inputs.conf" do
   source "forwarder/#{node['splunk']['forwarder_config_folder']}/#{node['splunk']['forwarder_role']}.inputs.conf.erb"
   owner "root"
   group "root"
