@@ -24,7 +24,7 @@ systeminputstemplate = "forwarder/#{node['splunk']['forwarder_config_folder']}/#
 service "splunk" do
   action [ :nothing ]
   supports :status => true, :start => true, :stop => true, :restart => true
-  subscribes :restart, resources(:template, systeminputsfile)
+  subscribes :restart, resources(:template => systeminputsfile)
 end
 
 directory "/opt" do
