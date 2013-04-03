@@ -64,7 +64,7 @@ end
 
 execute "#{splunk_cmd} enable boot-start --accept-license --answer-yes && echo true > /opt/splunk_license_accepted_#{node['splunk']['forwarder_version']}" do
   not_if do
-    File.exists?('/opt/splunk_license_accepted_#{node['splunk']['forwarder_version']}')
+    File.exists?("/opt/splunk_license_accepted_#{node['splunk']['forwarder_version']}")
   end
 end
 
