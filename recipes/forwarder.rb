@@ -62,10 +62,9 @@ package splunk_package_version do
   end
 end
 
-execute "#{splunk_cmd} enable boot-start --accept-license --answer-yes" do
+execute "#{splunk_cmd} enable boot-start --accept-license --answer-yes && echo true > /opt/splunk_license_accepted_#{node['splunk']['forwarder_version']}" do
   not_if do
-    File.symlink?('/etc/rc4.d/S20splunk') ||
-    File.symlink?('/etc/rc4.d/S90splunk')
+    File.exists?('/opt/splunk_license_accepted_#{node['splunk']['forwarder_version']}')
   end
 end
 
