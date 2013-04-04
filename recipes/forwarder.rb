@@ -17,11 +17,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-service "splunk" do
-  action [ :nothing ]
-  supports :status => true, :start => true, :stop => true, :restart => true
-end
-
 directory "/opt" do
   mode "0755"
   owner "root"
@@ -73,6 +68,11 @@ execute "#{splunk_cmd} edit user admin -password #{splunk_password} -roles admin
   not_if do
     File.exists?("/opt/splunk_setup_passwd")
   end
+end
+
+service "splunk" do
+  action [ :nothing ]
+  supports :status => true, :start => true, :stop => true, :restart => true
 end
 
 if Chef::Config[:solo]
