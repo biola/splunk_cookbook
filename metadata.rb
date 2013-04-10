@@ -6,3 +6,4 @@ version          "0.1.0"
 %w{redhat centos fedora debian ubuntu}.each do |os|
   supports os
 end
+depends          "ssl_certs_biola"

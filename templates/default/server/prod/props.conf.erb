@@ -1,0 +1,9 @@
+<% node['splunk']['props'].each_pair do |prop, conf| -%>
+[<%= prop %>]
+ <% conf.each_pair do |option, val| -%>
+	<% if val != "" -%>
+<%= option %> = <%= val %>
+	<% end -%>
+ <% end -%>
+ 
+<% end -%>

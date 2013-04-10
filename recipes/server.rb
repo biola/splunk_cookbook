@@ -102,19 +102,9 @@ if node['splunk']['use_ssl'] == true && dedicated_search_head == true
     recursive true
   end
 
-  cookbook_file "#{node['splunk']['server_home']}/ssl/#{node['splunk']['ssl_crt']}" do
-    source "ssl/#{node['splunk']['ssl_crt']}"
-    mode "0755"
-    owner "root"
-    group "root"
-  end
+  # Perfoming an encrypted data bag search here to load the cert
 
-  cookbook_file "#{node['splunk']['server_home']}/ssl/#{node['splunk']['ssl_key']}" do
-    source "ssl/#{node['splunk']['ssl_key']}"
-    mode "0755"
-    owner "root"
-    group "root"
-  end
+  include_recipe 'ssl_certs_biola'
 
 end
 
